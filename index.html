@@ -1,160 +1,123 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roteiros Turísticos Personalizados</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roteiro Turístico - Marajó</title>
+  <style>
     body {
-    background-image: url('fundo.jpg'); /* Nome da imagem */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-body {
-    background-image: url('fundo.jpg'); /* Nome da imagem */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('fundo.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
 
+    /* Sobreposição transparente para destacar o filtro */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Cor preta com 50% de transparência */
+      z-index: 1; /* Atrás do conteúdo */
+    }
 
-        header {
-            background-color: #2a9d8f;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 {
-            margin: 0;
-        }
-        .content {
-            padding: 20px;
-        }
-        .filter-section {
-            margin-bottom: 20px;
-        }
-        .filter-section input, .filter-section select {
-            padding: 10px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-        .results {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .result-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .result-card img {
-            width: 100%;
-            border-radius: 8px;
-        }
-        .button {
-            background-color: #2a9d8f;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            display: block;
-            margin-top: 10px;
-        }
-        footer {
-            background-color: #264653;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+    .container {
+      position: relative;
+      z-index: 2; /* Conteúdo na frente */
+      background: rgba(255, 255, 255, 0.9); /* Fundo branco levemente transparente */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    select, input[type="number"], button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
 </head>
 <body>
+  <div class="overlay"></div>
+  <div class="container">
+    <h1>Customização de Roteiro Turístico</h1>
+    <form id="filtroForm">
+      <label for="destino">Escolha seu destino:</label>
+      <select id="destino">
+        <option value="juruzal">Ilha da Juruzal</option>
+        <option value="curitipeireira">Balneários do Curitipeireira</option>
+      </select>
 
-    <header>
-        <h1>Roteiros Turísticos Personalizados para o Marajó</h1>
-    </header>
+      <label for="orcamento">Orçamento (R$):</label>
+      <input type="number" id="orcamento" placeholder="Informe seu orçamento">
 
-    <div class="content">
-        <div class="filter-section">
-            <h2>Personalize seu Roteiro</h2>
-            <label for="natureza">Preferência por natureza:</label>
-            <select id="natureza">
-                <option value="praia">Praia</option>
-                <option value="floresta">Floresta</option>
-                <option value="lagos">Lagos</option>
-            </select><br><br>
+      <label for="preferencias">Preferências:</label>
+      <select id="preferencias">
+        <option value="aventura">Turismo de Aventura</option>
+        <option value="ecoturismo">Ecoturismo</option>
+      </select>
 
-            <label for="tipo">Tipo de atividade:</label>
-            <select id="tipo">
-                <option value="ecoturismo">Ecoturismo</option>
-                <option value="aventura">Aventura</option>
-                <option value="relaxamento">Relaxamento</option>
-            </select><br><br>
+      <button type="button" onclick="gerarRoteiro()">Gerar Roteiro</button>
+    </form>
 
-            <label for="orçamento">Orçamento aproximado (em R$):</label>
-            <input type="number" id="orçamento" placeholder="Valor em R$"><br><br>
+    <div id="resultado"></div>
+  </div>
 
-            <button class="button" onclick="mostrarRoteiros()">Gerar Roteiro</button>
-        </div>
+  <script>
+    function gerarRoteiro() {
+      const destino = document.getElementById('destino').value;
+      const orcamento = document.getElementById('orcamento').value;
+      const preferencias = document.getElementById('preferencias').value;
 
-        <div id="roteiros" class="results">
-            <!-- Roteiros serão gerados aqui -->
-        </div>
-    </div>
+      let roteiro = `<h2>Seu Roteiro Personalizado:</h2>`;
+      roteiro += `<p>Destino: ${destino}</p>`;
+      roteiro += `<p>Orçamento: R$ ${orcamento}</p>`;
+      roteiro += `<p>Preferências: ${preferencias}</p>`;
 
-    <footer>
-        <p>© 2025 Roteiros do Marajó</p>
-    </footer>
+      roteiro += `<a href="#" onclick="baixarPDF()">Baixar em PDF</a>`;
 
-    <script>
-        function mostrarRoteiros() {
-            const natureza = document.getElementById("natureza").value;
-            const tipo = document.getElementById("tipo").value;
-            const orçamento = document.getElementById("orçamento").value;
+      document.getElementById('resultado').innerHTML = roteiro;
+    }
 
-            const roteiros = [
-                {
-                    nome: "Ilha da Juruzal",
-                    tipo: "Ecoturismo",
-                    imagem: "https://example.com/ilha_da_juruzal.jpg",
-                    descricao: "Uma ilha com florestas densas e trilhas para ecoturismo.",
-                    link_pdf: "#"
-                },
-                {
-                    nome: "Balneários do Curitipeira",
-                    tipo: "Aventura",
-                    imagem: "https://example.com/balnearios_curitipeira.jpg",
-                    descricao: "Praias de águas cristalinas com atividades de aventura.",
-                    link_pdf: "#"
-                }
-            ];
-
-            const container = document.getElementById("roteiros");
-            container.innerHTML = "";
-
-            roteiros.forEach(roteiro => {
-                const card = document.createElement("div");
-                card.className = "result-card";
-
-                card.innerHTML = `
-                    <img src="${roteiro.imagem}" alt="${roteiro.nome}">
-                    <h3>${roteiro.nome}</h3>
-                    <p>${roteiro.descricao}</p>
-                    <a href="${roteiro.link_pdf}" class="button" download>Baixar Roteiro em PDF</a>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-    </script>
-
+    function baixarPDF() {
+      const elemento = document.createElement('a');
+      const conteudo = document.getElementById('resultado').innerText;
+      const blob = new Blob([conteudo], { type: 'application/pdf' });
+      elemento.href = URL.createObjectURL(blob);
+      elemento.download = 'roteiro.pdf';
+      elemento.click();
+    }
+  </script>
 </body>
 </html>
+
