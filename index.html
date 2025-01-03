@@ -12,89 +12,110 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f4f4f4;
+      background: #f4f4f4; /* Cor de fundo suave */
     }
 
     .container {
       position: relative;
-      display: flex;
       width: 90%;
-      height: 90%;
+      max-width: 800px; /* Largura máxima */
+      height: auto; /* Altura automática */
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-size: cover; /* Imagem de fundo cobre todo o container */
+      background-position: center; /* Imagem centralizada */
+      background-image: url('fundo1.jpeg'); /* Imagem única de fundo */
+      border-radius: 8px; /* Cantos arredondados */
+      overflow: hidden; /* Evita que o conteúdo vaze para fora */
     }
 
-    /* Divisão da imagem em duas partes */
-    .image-left, .image-right {
-      flex: 1;
-      background-size: cover;
-      background-position: center;
-    }
 
-    .image-left {
-      background-image: url('fundo1.jpeg'); /* Primeira parte da imagem */
-    }
-
-    .image-right {
-      background-image: url('fundo2.jpeg'); /* Segunda parte da imagem */
-    }
-
-    /* Sobreposição escura para contraste */
     .overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Sombra transparente */
+      background: rgba(0, 0, 0, 0.5); /* Sombra transparente ajustável */
       z-index: 1;
     }
 
     .content {
-      position: absolute;
+      position: relative; /* Posicionamento relativo ao container */
       z-index: 2;
-      width: 50%;
-      background: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+      width: 100%; /* Ocupa toda a largura do container */
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center; /* Centraliza o texto */
+      color: white; /* Cor do texto */
     }
 
+
     h1 {
-      text-align: center;
       margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra no texto */
     }
 
     label {
       display: block;
       margin: 10px 0 5px;
-    }
+      text-align: left; /* Alinhamento à esquerda para os rótulos */
 
-    select, input[type="number"], button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
     }
+     /* Estilos para inputs, select e botão */
+    select, input[type="number"], button {
+       width: calc(100% - 22px); /* Ocupa toda a largura com ajuste para padding */
+       padding: 10px;
+       margin-bottom: 15px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       box-sizing: border-box; /* Inclui padding e border no tamanho total */
+   }
+
+
 
     button {
-      background-color: #28a745;
+      background-color: #28a745; /* Verde */
       color: white;
+      border: none;
       cursor: pointer;
+      transition: background-color 0.3s ease; /* Transição suave na cor de fundo */
     }
 
     button:hover {
-      background-color: #218838;
+      background-color: #218838; /* Verde mais escuro */
     }
+
+
+    #resultado {
+      margin-top: 20px; /* Espaçamento superior */
+       background: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      color: black; /* Cor do texto de resultado */
+      text-align: left;
+      overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo for muito longo */
+      max-height: 200px; /* Altura máxima com barra de rolagem */
+
+    }
+    #resultado p { color: black; } /* Cor do texto de resultado */
+    #resultado a {
+    color: #007bff;
+    text-decoration: none;
+    }
+    #resultado a:hover{
+    text-decoration: underline;
+    }
+
+
+
   </style>
 </head>
 <body>
+
   <div class="container">
-    <div class="image-left"></div>
-    <div class="image-right"></div>
     <div class="overlay"></div>
     <div class="content">
-      <h1>Customização de Roteiro Turístico</h1>
+     <h1>Customização de Roteiro Turístico</h1>
       <form id="filtroForm">
         <label for="destino">Escolha seu destino:</label>
         <select id="destino">
@@ -119,29 +140,7 @@
   </div>
 
   <script>
-    function gerarRoteiro() {
-      const destino = document.getElementById('destino').value;
-      const orcamento = document.getElementById('orcamento').value;
-      const preferencias = document.getElementById('preferencias').value;
-
-      let roteiro = `<h2>Seu Roteiro Personalizado:</h2>`;
-      roteiro += `<p>Destino: ${destino}</p>`;
-      roteiro += `<p>Orçamento: R$ ${orcamento}</p>`;
-      roteiro += `<p>Preferências: ${preferencias}</p>`;
-
-      roteiro += `<a href="#" onclick="baixarPDF()">Baixar em PDF</a>`;
-
-      document.getElementById('resultado').innerHTML = roteiro;
-    }
-
-    function baixarPDF() {
-      const elemento = document.createElement('a');
-      const conteudo = document.getElementById('resultado').innerText;
-      const blob = new Blob([conteudo], { type: 'application/pdf' });
-      elemento.href = URL.createObjectURL(blob);
-      elemento.download = 'roteiro.pdf';
-      elemento.click();
-    }
+     // ... (seu código JavaScript)
   </script>
 </body>
 </html>
