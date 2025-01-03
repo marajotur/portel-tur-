@@ -12,27 +12,48 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-image: url('fundo.jpeg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      background: #f4f4f4;
     }
 
-    /* Sobreposição transparente para destacar o filtro */
+    .container {
+      position: relative;
+      display: flex;
+      width: 90%;
+      height: 90%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Divisão da imagem em duas partes */
+    .image-left, .image-right {
+      flex: 1;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .image-left {
+      background-image: url('fundo1.jpeg'); /* Primeira parte da imagem */
+    }
+
+    .image-right {
+      background-image: url('fundo2.jpeg'); /* Segunda parte da imagem */
+    }
+
+    /* Sobreposição escura para contraste */
     .overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Cor preta com 50% de transparência */
-      z-index: 1; /* Atrás do conteúdo */
+      background: rgba(0, 0, 0, 0.5); /* Sombra transparente */
+      z-index: 1;
     }
 
-    .container {
-      position: relative;
-      z-index: 2; /* Conteúdo na frente */
-      background: rgba(255, 255, 255, 0.9); /* Fundo branco levemente transparente */
+    .content {
+      position: absolute;
+      z-index: 2;
+      width: 50%;
+      background: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -68,29 +89,33 @@
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
   <div class="container">
-    <h1>Customização de Roteiro Turístico</h1>
-    <form id="filtroForm">
-      <label for="destino">Escolha seu destino:</label>
-      <select id="destino">
-        <option value="juruzal">Ilha da Juruzal</option>
-        <option value="curitipeireira">Balneários do Curitipeireira</option>
-      </select>
+    <div class="image-left"></div>
+    <div class="image-right"></div>
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>Customização de Roteiro Turístico</h1>
+      <form id="filtroForm">
+        <label for="destino">Escolha seu destino:</label>
+        <select id="destino">
+          <option value="juruzal">Ilha da Juruzal</option>
+          <option value="curitipeireira">Balneários do Curitipeireira</option>
+        </select>
 
-      <label for="orcamento">Orçamento (R$):</label>
-      <input type="number" id="orcamento" placeholder="Informe seu orçamento">
+        <label for="orcamento">Orçamento (R$):</label>
+        <input type="number" id="orcamento" placeholder="Informe seu orçamento">
 
-      <label for="preferencias">Preferências:</label>
-      <select id="preferencias">
-        <option value="aventura">Turismo de Aventura</option>
-        <option value="ecoturismo">Ecoturismo</option>
-      </select>
+        <label for="preferencias">Preferências:</label>
+        <select id="preferencias">
+          <option value="aventura">Turismo de Aventura</option>
+          <option value="ecoturismo">Ecoturismo</option>
+        </select>
 
-      <button type="button" onclick="gerarRoteiro()">Gerar Roteiro</button>
-    </form>
+        <button type="button" onclick="gerarRoteiro()">Gerar Roteiro</button>
+      </form>
 
-    <div id="resultado"></div>
+      <div id="resultado"></div>
+    </div>
   </div>
 
   <script>
@@ -120,4 +145,5 @@
   </script>
 </body>
 </html>
+
 
